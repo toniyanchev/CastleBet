@@ -1,0 +1,22 @@
+.RegisterTypeSwitch {
+  display: flex;
+  height: fit-content;
+  margin: 20px;
+  cursor: pointer;
+}
+.RegisterType {
+  text-align: center;
+  padding: 4px;
+  color: white;
+  align-self: center;
+  background-color:  rgb(23, 23, 53);
+}
+.RegisterTypeSelected {
+  text-align: center;
+  background-color: rgb(66, 66, 121);
+  padding: 4px;
+  border: 1px rgb(23, 23, 53) solid;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+}

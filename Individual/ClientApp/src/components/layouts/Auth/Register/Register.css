@@ -1,0 +1,25 @@
+.RegisterWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background-color: rgb(40, 40, 75);
+  height: fit-content;
+  padding: 30px;
+}
+
+.RegisterButton {
+  display: flex;
+  width: 50%;
+  align-self: center;
+  justify-content: center;
+  margin: 20px;
+  outline: none;
+  background-color: rgb(167, 108, 0);
+  border: none;
+  border-radius: 10px;
+}
+
+.RegisterButton:focus {
+  outline: none;
+}
+
