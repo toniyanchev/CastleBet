@@ -33,6 +33,7 @@ const ClientRegister = props => {
     } else {
       setUsernameError(validUsername(value));
       setUsernameClass("InvalidUsername");
+      handleUsername("");
     }
   }
   const changePassword = value => {
@@ -44,13 +45,17 @@ const ClientRegister = props => {
     } else {
       setPasswordError(validPassword(value));
       setPasswordClass("InvalidUsername");
+      handlePassword("");
     }
   }
   const changeBirthDate = value => {
     console.log(value);
     setBirthDate(value);
-    if (validBirthDate(value) === true) {
-      handleBirthDate()
+    console.log(validBirthDate(value));
+    if (validBirthDate(value) >= 18) {
+      handleBirthDate(value);
+    } else {
+      handleBirthDate("");
     }
   }
 
