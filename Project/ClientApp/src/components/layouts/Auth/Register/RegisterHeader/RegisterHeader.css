@@ -1,0 +1,9 @@
+.RegisterHeaderWrapper {
+  display: flex;
+  align-self: center;
+}
+
+.RegisterHeaderLogo {
+  width: 150px;
+  height: 150px;
+}
