@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
+using WebApi.Entities;
 using WebApi.Services;
 
 namespace WebApi.Controllers
@@ -22,6 +24,17 @@ namespace WebApi.Controllers
 
             if (response == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
+        }
+
+        [HttpPost("register")]
+        public IActionResult Register(RegisterRequest model)
+        {
+            var response = _userService.Register(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Not valid data" });
 
             return Ok(response);
         }
