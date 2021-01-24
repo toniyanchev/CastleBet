@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using tempAppContext = WebApi.Helpers.AppContext;
@@ -9,9 +10,10 @@ using tempAppContext = WebApi.Helpers.AppContext;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(tempAppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20210124170458_ContentPropertyTicketMessages")]
+    partial class ContentPropertyTicketMessages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +35,6 @@ namespace WebApi.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Status")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
                         .HasColumnType("text");
 
                     b.Property<int?>("UserId")
@@ -64,14 +63,12 @@ namespace WebApi.Migrations
                     b.Property<int?>("TicketId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TicketId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("TicketMessages");
                 });
@@ -109,10 +106,6 @@ namespace WebApi.Migrations
                     b.HasOne("WebApi.Entities.Ticket", "Ticket")
                         .WithMany("Messages")
                         .HasForeignKey("TicketId");
-
-                    b.HasOne("WebApi.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

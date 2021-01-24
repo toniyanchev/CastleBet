@@ -28,6 +28,7 @@ namespace WebApi
             options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITicketService, TicketService>();
         }
 
         // configure the HTTP request pipeline

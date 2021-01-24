@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
 namespace WebApi.Entities
 {
@@ -11,5 +12,6 @@ namespace WebApi.Entities
         [JsonIgnore]
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
+        public List<Ticket> Tickets { get; set; }
     }
 }

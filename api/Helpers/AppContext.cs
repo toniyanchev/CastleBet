@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApi.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace WebApi.Helpers
 {
@@ -10,11 +11,21 @@ namespace WebApi.Helpers
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketMessage> TicketMessages { get; set; }
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("Users");
-         
+            modelBuilder.Entity<Ticket>()
+                .HasMany(t => t.Messages)
+                .WithOne(m => m.Ticket);
+            modelBuilder.Entity<Ticket>()
+                .HasOne(t => t.User)
+                .WithMany(u => u.Tickets);
+            modelBuilder.Entity<TicketMessage>()
+                .HasOne(m => m.User);
+                // .WithMany(u => u.TicketMessages);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using tempAppContext = WebApi.Helpers.AppContext;
@@ -9,9 +10,10 @@ using tempAppContext = WebApi.Helpers.AppContext;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(tempAppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20210124123132_TicketsTable2")]
+    partial class TicketsTable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +28,11 @@ namespace WebApi.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<DateTime>("LastActionDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<int?>("AdminId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("AdminResponse")
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("OriginDate")
                         .HasColumnType("timestamp without time zone");
@@ -35,45 +40,22 @@ namespace WebApi.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("text");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("UserRequest")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
-                });
-
-            modelBuilder.Entity("WebApi.Entities.TicketMessage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("TicketMessages");
                 });
 
             modelBuilder.Entity("WebApi.Entities.User", b =>
@@ -99,16 +81,9 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Entities.Ticket", b =>
                 {
-                    b.HasOne("WebApi.Entities.User", "User")
-                        .WithMany("Tickets")
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("WebApi.Entities.TicketMessage", b =>
-                {
-                    b.HasOne("WebApi.Entities.Ticket", "Ticket")
-                        .WithMany("Messages")
-                        .HasForeignKey("TicketId");
+                    b.HasOne("WebApi.Entities.User", "Admin")
+                        .WithMany()
+                        .HasForeignKey("AdminId");
 
                     b.HasOne("WebApi.Entities.User", "User")
                         .WithMany()
