@@ -1,0 +1,13 @@
+.NavigationItemsWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.NavigationItemsInnerWrapper {
+  display: flex;
+  height: 65px;
+  justify-content: flex-end;
+  list-style-type: none;
+  margin: 0;
+}

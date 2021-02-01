@@ -17,6 +17,8 @@ namespace WebApi.Services
     {
         List<Ticket> GetByUser(int userId);
         Ticket AddTicket(CreateTicketReq model);
+        TicketMessage AddTicketMessage(AddTicketMessageReq model);
+        Ticket CloseTicket(CloseTicketReq model);
     }
 
     public class TicketService : ITicketService
@@ -45,13 +47,17 @@ namespace WebApi.Services
        public Ticket AddTicket(CreateTicketReq model)
        {
          Ticket ticket = new Ticket();
+
+         //Take the user
          var user = _context.Users
           .Where(u => u.Id == model.UserId)
           .SingleOrDefault();
 
-        if (user == null)
+        //Check if user is admin or does not exist
+        if (user == null || user.IsAdmin == true)
           return null;
 
+        //Set ticket data
         ticket.Id = 0;
         ticket.LastActionDate = DateTime.Now;
         ticket.OriginDate = DateTime.Now;
@@ -59,11 +65,13 @@ namespace WebApi.Services
         ticket.User = user;
         ticket.Status = "Requested";
 
+        //Add ticket
         _context.Tickets.Add(ticket);
         _context.SaveChanges();
         if (ticket.Id == 0)
           return null;
 
+        //Set first ticket message data
         TicketMessage msg = new TicketMessage {
           Id = 0,
           Date = DateTime.Now,
@@ -71,35 +79,76 @@ namespace WebApi.Services
           User = user,
           Ticket = ticket
         };
+        //Add first ticket message
         _context.TicketMessages.Add(msg);
         _context.SaveChanges();
+
+        if (msg.Id == 0)
+          return null;
 
         return ticket;
        }
 
-        private bool registerValidation(RegisterRequest model)
+      public TicketMessage AddTicketMessage(AddTicketMessageReq model)
+      {
+        //Take user and check if it exists
+        var user = _context.Users
+          .Where(u => u.Id == model.UserId)
+          .SingleOrDefault();
+        if (user == null)
+          return null;
+
+        //Take ticket and check if it exists
+        var ticket = _context.Tickets
+          .Where(t => t.Id == model.TicketId)
+          .SingleOrDefault();
+        if (ticket == null || ticket.Status == "Closed")
+          return null;
+
+        //Open ticket if the replyer is admin
+        if (user.IsAdmin == true)
         {
-            //validate password
-            if (!(model.Password.Any(char.IsDigit)) || model.Password.Length < 10)
-                return false;
-
-            //validate username
-            if (!(model.Username.Any(char.IsDigit)) || model.Username.Length < 8)
-                return false;
-
-            //Check if user is adult
-            if (model.Birthdate != null)
-            {
-                var today = new DateTime();
-                DateTime birthdate = (DateTime) model.Birthdate;
-                var userAge = (today.Year - birthdate.Year - 1) +
-                    (((today.Month > birthdate.Month) ||
-                    ((today.Month == birthdate.Month) && (today.Day >= birthdate.Day))) ? 1 : 0);
-                if (userAge < 18)
-                    return false;
-            }
-
-            return true;
+          ticket.Status = "Opened";
+          _context.SaveChanges();
         }
+
+        //Build ticket message data
+        TicketMessage ticketMessage = new TicketMessage {
+          Id = 0,
+          Date = DateTime.Now,
+          User = user,
+          Ticket = ticket,
+          Content = model.Content
+        };
+
+        //Add ticket message
+        _context.TicketMessages.Add(ticketMessage);
+        _context.SaveChanges();
+
+        //Check if it is added succesfuly
+        if (ticketMessage.Id == 0)
+          return null;
+
+        return ticketMessage;
+      }
+
+      public Ticket CloseTicket(CloseTicketReq model)
+      {
+        var ticket = _context.Tickets
+          .Where(t => t.Id == model.TicketId)
+          .SingleOrDefault();
+        if (ticket == null)
+          return null;
+
+        var user = _context.Users
+          .Where(u => u.Id == model.UserId)
+          .SingleOrDefault();
+        if (user == null || user.IsAdmin == false)
+          return null;
+
+        ticket.Status = "Closed";
+        
+        return ticket;
+      }
     }
 }

@@ -38,5 +38,27 @@ namespace WebApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("reply")]
+        public IActionResult AddTicketMessage(AddTicketMessageReq model)
+        {
+            var response = _ticketService.AddTicketMessage(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Wrong data to save." });
+
+            return Ok(response);
+        }
+
+        [HttpPost("close")]
+        public IActionResult CloseTicket(CloseTicketReq model)
+        {
+            var response = _ticketService.CloseTicket(model);
+
+            if (response == null)
+                return BadRequest(new { message = "User is not admin or does not exist" });
+
+            return Ok(response);
+        }
     }
 }

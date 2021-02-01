@@ -29,7 +29,6 @@ const AdminRegister = props => {
   const changeUsername = value => {
     setUsername(value);
     if (validUsername(value) === true) {
-      handleUsername(value);
       setUsernameClass("ValidUsername");
       setUsernameError("");
     } else {
@@ -38,20 +37,19 @@ const AdminRegister = props => {
         setUsernameError("");
       }
       setUsernameClass("InvalidUsername");
-      handleUsername(null);
     }
+    handleUsername(value);
   }
   const changePassword = value => {
     setPassword(value);
     if (validPassword(value) === true) {
-      handlePassword(value);
       setPasswordClass("ValidPassword");
       setPasswordError("");
     } else {
       setPasswordError(validPassword(value));
       setPasswordClass("InvalidUsername");
-      handlePassword(null);
     }
+    handlePassword(value);
   }
   const changeAdminCode = value => {
     setAdminCode(value);
@@ -68,7 +66,7 @@ const AdminRegister = props => {
         onChange={(e) => changeUsername(e.target.value)} />
       <div className="UsernameError">{usernameError}</div>
 
-      <div className="PasswordField" style={{marginBottom: "15px"}} >
+      <div className="AdminPasswordField" style={{marginBottom: "15px"}} >
         <input
           className={passwordClass}
           type={showPassword ? "text" : "password"}

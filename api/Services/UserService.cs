@@ -109,12 +109,13 @@ namespace WebApi.Services
             //Check if user is adult
             if (model.Birthdate != null)
             {
-                var today = new DateTime();
-                DateTime birthdate = (DateTime) model.Birthdate;
-                var userAge = (today.Year - birthdate.Year - 1) +
-                    (((today.Month > birthdate.Month) ||
-                    ((today.Month == birthdate.Month) && (today.Day >= birthdate.Day))) ? 1 : 0);
-                if (userAge < 18)
+                var today = DateTime.Today;
+                var age = today.Year - model.Birthdate.Year;
+                if (model.Birthdate.Date > today.AddYears(-age))
+                {
+                    age--;
+                }
+                if (age < 18)
                     return false;
             }
 

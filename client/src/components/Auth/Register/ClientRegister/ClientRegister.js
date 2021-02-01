@@ -31,27 +31,25 @@ const ClientRegister = props => {
     if (validUsername(value) === true) {
       setUsernameClass("ValidUsername");
       setUsernameError("");
-      handleUsername(value);
     } else {
       setUsernameError(validUsername(value));
       if (value === "") {
         setUsernameError("");
       }
       setUsernameClass("InvalidUsername");
-      handleUsername(null);
     }
+    handleUsername(value);
   }
   const changePassword = value => {
     setPassword(value);
     if (validPassword(value) === true) {
-      handlePassword(value);
       setPasswordClass("ValidPassword");
       setPasswordError("");
     } else {
       setPasswordError(validPassword(value));
       setPasswordClass("InvalidUsername");
-      handlePassword(null);
     }
+    handlePassword(value);
   }
   const changeBirthDate = value => {
     console.log(value);
@@ -73,7 +71,7 @@ const ClientRegister = props => {
         onChange={(e) => changeUsername(e.target.value)} />
       <div className="UsernameError">{usernameError}</div>
 
-      <div className="PasswordField">
+      <div className="ClientPasswordField">
         <input
           className={passwordClass}
           type={showPassword ? "text" : "password"}

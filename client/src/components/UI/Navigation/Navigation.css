@@ -1,0 +1,17 @@
+.NavBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgb(15, 38, 77);
+  border-bottom: 3px rgb(18, 18, 39) solid;
+  display: flex;
+  height: 65px;
+}
+
+.NavBarLogo {
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-left: 50px;
+}

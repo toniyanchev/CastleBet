@@ -4,16 +4,17 @@
   align-items: center;
 }
 .ClientRegisterWrapper input {
-  width: 220px;
+  width: 100%;
   background-color: rgb(29, 29, 54);
   border: none;
   border-radius: 5px;
   color: rgb(203, 200, 233);
   outline: none;
   padding-left: 10px;
+  height: 30px;
 }
 .ValidUsername:focus {
-  width: 220px;
+  width: 100%;
   background-color: rgb(29, 29, 54);
   border: 1px green solid;
   border-radius: 5px;
@@ -22,7 +23,7 @@
   padding-left: 10px;
 }
 .InvalidUsername:focus {
-  width: 220px;
+  width: 100%;
   background-color: rgb(29, 29, 54);
   border: 1px red solid;
   border-radius: 5px;
@@ -30,11 +31,17 @@
   outline: none;
   padding-left: 10px;
 }
-.PasswordField {
-  width: 220px;
+.ClientPasswordField {
+  display: flex;
+  margin-top: 15px;
+  background-color: rgb(29, 29, 54);
+  border-radius: 5px;
+  height: 33px;
+  width: 103%;
 }
 .ValidPassword:focus {
-  width: 220px;
+  /* height: 33px; */
+  width: 103%;
   background-color: rgb(29, 29, 54);
   border: 1px green solid;
   border-radius: 5px;
@@ -43,7 +50,8 @@
   padding-left: 10px;
 }
 .InvalidPassword:focus {
-  width: 220px;
+  /* height: 33px; */
+  width: 103%;
   background-color: rgb(29, 29, 54);
   border: 1px red solid;
   border-radius: 5px;

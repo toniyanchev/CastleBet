@@ -28,3 +28,13 @@ export const validBirthDate = date => {
   }
   return age;
 }
+
+const validateUserData = userData => {
+  if (validUsername(userData.username) !== true) return false;
+  if (validPassword(userData.password) !== true) return false;
+  if (validBirthDate(userData.birthdate) < 18) return false;
+  
+  return true;
+}
+
+export default validateUserData;

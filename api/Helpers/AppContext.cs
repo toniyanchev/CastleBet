@@ -24,8 +24,8 @@ namespace WebApi.Helpers
                 .HasOne(t => t.User)
                 .WithMany(u => u.Tickets);
             modelBuilder.Entity<TicketMessage>()
-                .HasOne(m => m.User);
-                // .WithMany(u => u.TicketMessages);
+                .HasOne(m => m.User)
+                .WithMany(u => u.TicketMessages);
         }
     }
 }

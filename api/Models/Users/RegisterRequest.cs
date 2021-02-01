@@ -15,7 +15,7 @@ namespace WebApi.Models
         [Required]
         public bool IsAdmin { get; set; }
 
-        public DateTime? Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
         public string AdminCode { get; set; }
         
         
