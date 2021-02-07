@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApi.Helpers;
@@ -9,9 +10,10 @@ using WebApi.Helpers;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Helpers.AppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20210202220646_AddSlotMachineSpinsTable2")]
+    partial class AddSlotMachineSpinsTable2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,7 +131,7 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Entities.SlotMachineSpin", b =>
                 {
                     b.HasOne("WebApi.Entities.User", "User")
-                        .WithMany("SlotMachineSpins")
+                        .WithMany()
                         .HasForeignKey("UserId");
                 });
 

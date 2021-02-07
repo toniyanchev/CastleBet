@@ -13,6 +13,7 @@ namespace WebApi.Helpers
         public DbSet<User> Users { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<TicketMessage> TicketMessages { get; set; }
+        public DbSet<SlotMachineSpin> SlotMachineSpins { get; set; }
        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,6 +27,9 @@ namespace WebApi.Helpers
             modelBuilder.Entity<TicketMessage>()
                 .HasOne(m => m.User)
                 .WithMany(u => u.TicketMessages);
+            modelBuilder.Entity<SlotMachineSpin>()
+                .HasOne(s => s.User)
+                .WithMany(u => u.SlotMachineSpins);
         }
     }
 }

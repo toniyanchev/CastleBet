@@ -34,7 +34,7 @@ namespace WebApi.Controllers
             var response = _ticketService.AddTicket(ticket);
 
             if (response == null)
-                return BadRequest(new { message = "User do not exist" });
+                return BadRequest(new { message = "User do not exist or it is admin" });
 
             return Ok(response);
         }

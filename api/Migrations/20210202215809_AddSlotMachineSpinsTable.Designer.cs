@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApi.Helpers;
@@ -9,44 +10,16 @@ using WebApi.Helpers;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Helpers.AppContext))]
-    partial class AppContextModelSnapshot : ModelSnapshot
+    [Migration("20210202215809_AddSlotMachineSpinsTable")]
+    partial class AddSlotMachineSpinsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            modelBuilder.Entity("WebApi.Entities.SlotMachineSpin", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<float>("Bet")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Game")
-                        .HasColumnType("text");
-
-                    b.Property<float>("Reward")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SlotMachineSpins");
-                });
 
             modelBuilder.Entity("WebApi.Entities.Ticket", b =>
                 {
@@ -124,13 +97,6 @@ namespace WebApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("WebApi.Entities.SlotMachineSpin", b =>
-                {
-                    b.HasOne("WebApi.Entities.User", "User")
-                        .WithMany("SlotMachineSpins")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WebApi.Entities.Ticket", b =>
