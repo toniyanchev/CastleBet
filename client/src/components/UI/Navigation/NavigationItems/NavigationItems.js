@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom';
+
+import { UserContext } from '../../../../contexts/User/UserContext';
 
 import NavigationItem from './NavigationItem/NavigationItem';
 
 import './NavigationItems.css';
 
 const NavigationItems = props => {
-  const { userType, username, balance } = props;
+  const { userType } = props;
+
+  const userData = useContext(UserContext);
 
   const history = useHistory();
 
@@ -34,7 +38,7 @@ const NavigationItems = props => {
         handleClick={() => history.push("/tickets")}
       />
       <NavigationItem 
-        name={username}
+        name={userData.user?.username}
         handleClick={() => history.push("/")}
       />
     </ul>
@@ -52,13 +56,11 @@ const NavigationItems = props => {
         handleClick={() => history.push("/tickets")}
       />
       <NavigationItem 
-        name={username}
+        name={userData.user?.username}
         handleClick={() => history.push("/")}
-      />
-      <NavigationItem 
-        name={balance}
-        handleClick={() => history.push("/")}
-      />
+      >
+        <div>{userData.user?.balance} CC</div>
+      </NavigationItem>
     </ul>
   );
   return (

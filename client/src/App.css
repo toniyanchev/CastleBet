@@ -1,4 +1,6 @@
 .App {
+  display: flex;
+  justify-content: center;
   text-align: center;
   background-color: rgb(17, 30, 54);
   height: 100%;

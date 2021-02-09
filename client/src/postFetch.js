@@ -1,4 +1,5 @@
 const postFetch = async (url, data) => {
+  console.log(data);
 
   let repsonse = await fetch(url, {
     method: 'POST',

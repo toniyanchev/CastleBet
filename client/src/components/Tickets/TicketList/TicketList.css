@@ -1,0 +1,6 @@
+.TicketListWrapper {
+  width: 80%;
+  background-color: rgb(23, 41, 73);
+  border: 1px rgb(21, 41, 75) solid;
+  box-shadow: 3px 3px 3px 3px rgb(2, 9, 41);
+}

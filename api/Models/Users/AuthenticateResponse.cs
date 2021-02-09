@@ -6,6 +6,8 @@ namespace WebApi.Models
     {
         public int Id { get; set; }
         public string Username { get; set; }
+        public int Balance { get; set; }
+        public string UserType { get; set; }
         public string Token { get; set; }
 
 
@@ -13,6 +15,8 @@ namespace WebApi.Models
         {
             Id = user.Id;
             Username = user.Username;
+            Balance = user.Balance;
+            UserType = user.IsAdmin ? "admin" : "client";
             Token = token;
         }
     }

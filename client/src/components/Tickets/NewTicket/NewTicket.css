@@ -1,0 +1,36 @@
+.NewTicketWrapper {
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.NewTicket {
+  position: fixed;
+  z-index: 2;
+  width: 50%;
+  height: 50%;
+  background-color: white;
+}
+
+.NewTicketCloseButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  color: white;
+  font-weight: 900;
+  background-color: red;
+  width: 30px;
+  height: 30px;
+  right: 0;
+  margin: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.NewTicketCloseButton:hover {
+  opacity: 0.6;
+}

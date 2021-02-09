@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.Entities;
 using WebApi.Services;
+using WebApi.Models.Tickets;
 
 namespace WebApi.Controllers
 {
@@ -17,10 +18,10 @@ namespace WebApi.Controllers
             _ticketService = ticketService;
         }
 
-        [HttpGet("get")]
-        public IActionResult GetByUser(int userId)
+        [HttpPost("get")]
+        public IActionResult GetByUser(GetTicketsReq model)
         {
-            var response = _ticketService.GetByUser(userId);
+            var response = _ticketService.GetByUser(model.UserId);
 
             if (response == null)
                 return BadRequest(new { message = "User do not exist" });

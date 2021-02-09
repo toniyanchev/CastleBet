@@ -85,7 +85,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Gerb,
-                    Currency = 2
+                    Currency = 0.5f
                 };
             }
             //
@@ -93,7 +93,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Swords,
-                    Currency = 2
+                    Currency = 0.5f
                 };
             }
             //
@@ -101,7 +101,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Crown,
-                    Currency = 2
+                    Currency = 0.5f
                 };
             }
             //
@@ -109,7 +109,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.King,
-                    Currency = 6
+                    Currency = 4
                 };
             }
             //
@@ -117,7 +117,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Queen,
-                    Currency = 6
+                    Currency = 4
                 };
             }
             //
@@ -125,14 +125,14 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Knight,
-                    Currency = 4
+                    Currency = 2
                 };
             }
 
             return null;
         }
 
-        private float calculateReward(List<SlotSymbol> symbols, int bet)
+        private float calculateReward(List<SlotSymbol> symbols, float bet)
         {
             float result = 0;
 
@@ -141,19 +141,14 @@ namespace WebApi.Services
             result = result + calculateSingleLine(symbols[6].Currency, symbols[7].Currency, symbols[8].Currency, bet);
             result = result + calculateSingleLine(symbols[0].Currency, symbols[4].Currency, symbols[8].Currency, bet);
             result = result + calculateSingleLine(symbols[6].Currency, symbols[4].Currency, symbols[2].Currency, bet);
-            result = result + calculateSingleLine(symbols[0].Currency, symbols[4].Currency, symbols[2].Currency, bet);
-            result = result + calculateSingleLine(symbols[3].Currency, symbols[1].Currency, symbols[5].Currency, bet);
-            result = result + calculateSingleLine(symbols[3].Currency, symbols[7].Currency, symbols[5].Currency, bet);
-            result = result + calculateSingleLine(symbols[6].Currency, symbols[4].Currency, symbols[8].Currency, bet);
-            result = result + calculateSingleLine(symbols[0].Currency, symbols[7].Currency, symbols[2].Currency, bet);
 
             return result;
         }
 
-        private float calculateSingleLine(int currency1, int currency2, int currency3, int bet)
+        private float calculateSingleLine(float currency1, float currency2, float currency3, float bet)
         {
             //Assign first symbol as main symbol(line maker)
-            int mainCurrency = currency1;
+            float mainCurrency = currency1;
 
             //Check if line has only special Castle symbols
             if (currency1 == 0 && currency2 == 0 && currency3 == 0)
@@ -163,7 +158,7 @@ namespace WebApi.Services
             if (mainCurrency == 0)
                 mainCurrency = currency2;
             if (mainCurrency == 0)
-                mainCurrency = currency3; 
+                mainCurrency = currency3;
 
             //Check if we have a winning line - equal symbols or combinated with special symbol
             if (currency1 != mainCurrency && currency1 != 0)

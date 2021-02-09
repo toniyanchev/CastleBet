@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import postFetch from '../../../postFetch';
+import { UserContext } from '../../../contexts/User/UserContext';
 
 import Logo from '../../UI/Logo/Logo';
 
@@ -13,6 +14,8 @@ const AUTHENTICATE_USER = `http://localhost:4000/users/authenticate`;
 const Login = props => {
     const { handleRegisterNow } = props;
 
+    const userData = useContext(UserContext);
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +26,15 @@ const Login = props => {
             password: password
         }
         console.log(user);
-        postFetch(AUTHENTICATE_USER, user);
+        postFetch(AUTHENTICATE_USER, user)
+            .then(data => {
+                userData.setUser({
+                    id: data.id,
+                    username: data.username,
+                    balance: data.balance,
+                    userType: data.userType
+                });
+            });
     }
 
     return (

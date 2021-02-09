@@ -1,5 +1,6 @@
 .NavigationItemWrapper {
   display: flex;
+  flex-direction: column;
   height: 65px;
   width: 130px;
   align-items: center;
@@ -8,12 +9,5 @@
   font-weight: 1000;
 }
 .NavigationItemWrapper:hover {
-  display: flex;
-  height: 65px;
-  width: 130px;
-  align-items: center;
-  justify-content: center;
-  color: rgb(221, 221, 221);
-  font-weight: 1000;
   background-color: rgb(13, 32, 66);
 }
