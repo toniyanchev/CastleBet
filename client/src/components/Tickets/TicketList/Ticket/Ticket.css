@@ -22,21 +22,18 @@
   height: 10px;
   border-radius: 100px;
   background-color: yellow;
-  margin-right: 20px;
 }
 .OpenedStatusBox {
   width: 10px;
   height: 10px;
   border-radius: 100px;
   background-color: green;
-  margin-right: 20px;
 }
 .ClosedStatusBox {
   width: 10px;
   height: 10px;
   border-radius: 100px;
   background-color: red;
-  margin-right: 20px;
 }
 .TicketDates {
   width: 20%;
@@ -51,5 +48,5 @@
 .TicketStatus {
   display: flex;
   width: 15%;
-  justify-content: center;
+  justify-content: space-between;
 }

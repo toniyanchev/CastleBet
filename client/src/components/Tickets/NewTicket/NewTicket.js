@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Backdrop from '../../UI/Backdrop/Backdrop';
+import NewTicketForm from './NewTicketForm/NewTicketForm';
 
 import './NewTicket.css';
 
@@ -14,7 +15,8 @@ const NewTicket = props => {
         <div
           className="NewTicketCloseButton"
           onClick={() => handleCloseNewTicket()} >X</div> 
-        Add Ticket
+
+        <NewTicketForm />
       </div>
     </div>
   )

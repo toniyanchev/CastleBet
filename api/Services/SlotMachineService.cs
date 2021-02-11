@@ -36,6 +36,12 @@ namespace WebApi.Services
         {
             List<SlotSymbol> symbolsList = new List<SlotSymbol>();
 
+            var user = _context.Users
+                .Where(u => u.Id == model.UserId)
+                .SingleOrDefault();
+            if (user.Balance < model.Bet)
+                return null;
+
             //Fill list with random symbols based on certain odds
             for (var i = 0; i < 9; i++)
             {

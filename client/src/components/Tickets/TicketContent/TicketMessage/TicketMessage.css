@@ -1,0 +1,45 @@
+.ReceivedTicketMessageWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  margin-left: 20px;
+  align-items: flex-start;
+}
+.ReceivedTicketMessage {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  height: 100%;
+  width: fit-content;
+  background-color: rgb(190, 190, 190);
+  border-radius: 20px;
+}
+.ReceivedMessageTime {
+  margin-top: 2px;
+  font-size: 1.5vh;
+  font-weight: 900;
+}
+
+.SentTicketMessageWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  margin-right: 20px;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.SentTicketMessage {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  height: 100%;
+  width: fit-content;
+  background-color: rgb(171, 205, 236);
+  border-radius: 20px;
+}
+.SentMessageTime {
+  margin-top: 2px;
+  font-size: 1.5vh;
+  font-weight: 900;
+}
+

@@ -7,8 +7,9 @@ export const UserContextProvider = props => {
     username: null,
     userType: "user"
   });
+  const [token, setToken] = useState(null);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>{props.children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, setUser, token, setToken }}>{props.children}</UserContext.Provider>
   );
 };

@@ -29,13 +29,34 @@ namespace WebApi.Controllers
             return Ok(response);
         }
 
+        [HttpGet("get-for-admin")]
+        public IActionResult GetForAdmin()
+        {
+            var response = _ticketService.GetAdminTickets();
+
+            if (response == null)
+                return BadRequest(new { message = "error fetching" });
+
+            return Ok(response);
+        }
+
         [HttpPost("create")]
+        [Authorize]
         public IActionResult AddTicket(CreateTicketReq ticket)
         {
             var response = _ticketService.AddTicket(ticket);
 
             if (response == null)
                 return BadRequest(new { message = "User do not exist or it is admin" });
+
+            return Ok(response);
+        }
+
+        [HttpPost("get-messages")]
+        [Authorize]
+        public IActionResult GetTicketMessages(TicketMessagesReq model)
+        {
+            var response = _ticketService.GetTicketMessages(model);
 
             return Ok(response);
         }

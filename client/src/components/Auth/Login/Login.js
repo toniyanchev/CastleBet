@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import postFetch from '../../../postFetch';
+import postFetch from '../../../fetches/postFetch';
 import { UserContext } from '../../../contexts/User/UserContext';
 
 import Logo from '../../UI/Logo/Logo';
@@ -13,6 +14,7 @@ const AUTHENTICATE_USER = `http://localhost:4000/users/authenticate`;
 
 const Login = props => {
     const { handleRegisterNow } = props;
+    let history = useHistory();
 
     const userData = useContext(UserContext);
 
@@ -25,15 +27,20 @@ const Login = props => {
             username: username,
             password: password
         }
-        console.log(user);
+
         postFetch(AUTHENTICATE_USER, user)
             .then(data => {
-                userData.setUser({
-                    id: data.id,
-                    username: data.username,
-                    balance: data.balance,
-                    userType: data.userType
-                });
+                if (data.httpStatus === 200) {
+                    userData.setToken(data.token);
+                    userData.setUser({
+                        id: data.id,
+                        username: data.username,
+                        balance: data.balance,
+                        userType: data.userType
+                    });
+                    history.push('/');
+                }
+                
             });
     }
 

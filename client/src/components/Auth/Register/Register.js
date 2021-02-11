@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import postFetch from '../../../postFetch';
+import postFetch from '../../../fetches/postFetch';
 import validateUserData from './validation';
 
 import UserType from './UserType/UserType';

@@ -5,7 +5,7 @@ import { formatDate } from '../../helpers';
 import './Ticket.css';
 
 const Ticket = props => {
-  const { ticket } = props;
+  const { ticket, handleClick } = props;
 
   const [statusColor, setStatusColor] = useState("");
 
@@ -27,7 +27,10 @@ const Ticket = props => {
   }, [ticket.status])
 
   return (
-    <div className="TicketWrapper">
+    <div
+      className="TicketWrapper"
+      onClick={() => handleClick()}
+    >
       <div className="TicketStatus">
         <div className={statusColor}></div>
         {ticket.status}

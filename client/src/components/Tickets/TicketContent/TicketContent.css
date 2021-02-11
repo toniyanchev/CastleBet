@@ -1,25 +1,34 @@
-.NewTicketWrapper {
+.TicketContentWrapper {
   z-index: 1;
   position: absolute;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
 }
 
-.NewTicket {
+.TicketContent {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   position: fixed;
   z-index: 2;
   width: 50%;
-  height: 50%;
+  height: 70%;
+  border-radius: 15px;
+  box-shadow: 6px 6px rgb(89, 92, 107);
   background-color: white;
 }
 
-.NewTicketCloseButton {
+.TicketMessagesWrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 100%;
+  overflow: overlay;
+}
+
+.TicketContentCloseButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,6 +44,6 @@
   border-radius: 15px;
   cursor: pointer;
 }
-.NewTicketCloseButton:hover {
+.TicketContentCloseButton:hover {
   opacity: 0.6;
 }

@@ -1,27 +1,44 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import postFetch from '../../../postFetch';
+import postFetch from '../../../fetches/postFetch';
+import getFetch from '../../../fetches/getFetch';
 import { UserContext } from '../../../contexts/User/UserContext';
 
 import Ticket from './Ticket/Ticket';
+import TicketsHeader from './TicketsHeader/TicketsHeader';
 
 import './TicketList.css';
 
-const GET_TICKETS = `http://localhost:4000/ticket/get`
+const GET_CLIENT_TICKETS = `http://localhost:4000/ticket/get`
+const GET_ADMIN_TICKETS = `http://localhost:4000/ticket/get-for-admin`
 
-const TicketList = () => {
+const TicketList = props => {
+  const { openTicketHandler } = props;
   const userData = useContext(UserContext);
 
   const [userTickets, setUserTickets] = useState([]);
 
   useEffect(() => {
-    postFetch(GET_TICKETS, { userId: userData.user.id})
-      .then(data => setUserTickets(data));
-  }, [userData.user.id]);
+    if (userData.user.userType === "admin") {
+      getFetch(GET_ADMIN_TICKETS, userData.token)
+        .then(data => setUserTickets(data));
+    }
+    if (userData.user.userType === "client") {
+      postFetch(GET_CLIENT_TICKETS, { userId: userData.user.id}, userData.token)
+        .then(data => setUserTickets(data));
+    }
+  }, [userData]);
 
   return (
     <div className="TicketListWrapper">
-      {userTickets.map(ticket => <Ticket ticket={ticket}/>)}
+      <TicketsHeader />
+      {userTickets.map(ticket =>
+        <Ticket
+          key={ticket.id}
+          ticket={ticket}
+          handleClick={() => openTicketHandler(ticket)}
+        />
+      )}
     </div>
   );
 }

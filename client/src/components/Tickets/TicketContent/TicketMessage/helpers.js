@@ -1,16 +1,30 @@
-export const formatDate = date => {
+export const filterMessage = (message, userType) => {
+  if (userType === "admin") {
+    if (message.user.isAdmin) {
+      return "sent";
+    } else {
+      return "received";
+    }
+  }
+
+  if (userType === "client") {
+    if (!message.user.isAdmin) {
+      return "sent";
+    } else {
+      return "received";
+    }
+  }
+}
+
+export const getMessageTime = date => {
   const monthNames = ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
 
-  if (date === null) {
-    return null;
-  }
   let dateObj = new Date(date);
 
   let day = dateObj.getDate();
   let month = monthNames[dateObj.getMonth()];
-  let year = dateObj.getFullYear();
   let hours = dateObj.getHours();
   let minutes = dateObj.getMinutes();
 
@@ -21,5 +35,5 @@ export const formatDate = date => {
     minutes = `0${minutes}`;
   }
 
-  return `${day} ${month} ${year} ${hours}:${minutes}`;
+  return `${day} ${month} ${hours}:${minutes}`;
 }
