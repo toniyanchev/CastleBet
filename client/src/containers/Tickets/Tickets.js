@@ -14,6 +14,7 @@ const Tickets = () => {
   const [showNewTicketModal, setShowNewTicketModal] = useState(false);
   const [showTicketContentModal, setShowTicketContentModal] = useState(false);
   const [openedTicket, setOpenedTicket] = useState(null);
+  const [refreshTicketList, setRefreshTicketList] = useState(false);
 
   const openTicketContent = ticket => {
     setOpenedTicket(ticket);
@@ -28,7 +29,10 @@ const Tickets = () => {
     <div className="TicketsContainer">
       { showNewTicketModal ? (
         <NewTicket
-          handleCloseNewTicket={() => setShowNewTicketModal(false)}
+          handleCloseNewTicket={() => {
+            setShowNewTicketModal(false);
+            setRefreshTicketList(!refreshTicketList);
+          }}
         /> ):
         null }
 
@@ -37,11 +41,14 @@ const Tickets = () => {
           <TicketContent
             ticket={openedTicket}
             handleClose={() => closeTicketContent()}
+            handleStatusChange={() => setRefreshTicketList(!refreshTicketList)}
           /> :
           null
       }
-
-      <TicketList openTicketHandler={(t) => openTicketContent(t)} />
+      <TicketList
+        openTicketHandler={(t) => openTicketContent(t)}
+        refresh={refreshTicketList}
+      />
 
       {
         userData.user.userType === "client" ?

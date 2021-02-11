@@ -6,7 +6,8 @@ import './NewTicketForm.css';
 
 const CREATE_TICKET = `http://localhost:4000/ticket/create`;
 
-const NewTicketForm = () => {
+const NewTicketForm = props => {
+  const { created } = props;
   const userData = useContext(UserContext);
 
   const [title, setTitle] = useState(null);
@@ -19,7 +20,7 @@ const NewTicketForm = () => {
       content: message
     };
     postFetch(CREATE_TICKET, req, userData.token)
-      .then(data => console.log(data))
+      .then(data => data.httpStatus === 200 ? created() : window.alert('Could not create!'));
   }
 
   return (

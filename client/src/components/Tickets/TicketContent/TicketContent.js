@@ -10,7 +10,7 @@ import './TicketContent.css';
 const GET_TICKET_MESSAGES = `http://localhost:4000/ticket/get-messages`;
 
 const TicketContent = props => {
-  const { ticket, handleClose } = props;
+  const { ticket, handleClose, handleStatusChange } = props;
   const userData = useContext(UserContext);
 
   const [ticketMessages, setTicketMessages] = useState([]);
@@ -40,10 +40,20 @@ const TicketContent = props => {
           )
         }
         </div>
-        <MessageReply
-          ticketId={ticket.id}
-          reply={() => setRefresh(!refresh)}
-        />
+        { ticket.status !== "closed" ?
+          <MessageReply
+            ticketId={ticket.id}
+            reply={() => {
+              setRefresh(!refresh);
+              handleStatusChange();
+            }}
+            close={() => {
+              handleClose();
+              handleStatusChange();
+            }}
+          /> :
+          null
+        }
       </div>
     </div>
   );

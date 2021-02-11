@@ -16,7 +16,9 @@ const NewTicket = props => {
           className="NewTicketCloseButton"
           onClick={() => handleCloseNewTicket()} >X</div> 
 
-        <NewTicketForm />
+        <NewTicketForm
+          created={() => handleCloseNewTicket()}
+        />
       </div>
     </div>
   )

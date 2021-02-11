@@ -8,13 +8,14 @@ const CLOSE_TICKET = `http://localhost:4000/ticket/close`;
 const ADD_TICKET_MESSAGE = `http://localhost:4000/ticket/reply`
 
 const MessageReply = props => {
-  const { ticketId, reply } = props;
+  const { ticketId, reply, close } = props;
 
   const userData = useContext(UserContext);
   const [message, setMessage] = useState("");
 
   const closeTicket = (reqBody) => {
     postFetch(CLOSE_TICKET, reqBody, userData.token);
+    close();
   }
   
   const replyToTicket = (reqBody) => {
