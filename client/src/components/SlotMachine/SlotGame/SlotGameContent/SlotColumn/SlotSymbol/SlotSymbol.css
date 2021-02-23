@@ -1,0 +1,11 @@
+.SlotSymbolWrapper {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+}
+
+.SlotSymbolWrapper img {
+  width: 15vh;
+  height: 15vh;
+  margin: 2px;
+}

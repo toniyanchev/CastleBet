@@ -3,7 +3,7 @@ namespace WebApiModels.SlotMachine
     public class SlotSymbol
     {
         public SymbolType Symbol { get; set; }
-        public float Currency { get; set; }
+        public int Currency { get; set; }
     }
 
     public enum SymbolType

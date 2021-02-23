@@ -1,3 +1,4 @@
+using System.IO;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -19,6 +20,8 @@ namespace WebApi.Services
         User Register(RegisterRequest model);
         IEnumerable<User> GetAll();
         User GetById(int id);
+        bool UploadImage(UserImage file);
+        GetPictureRes GetPicturePath(GetPicturePathReq model);
     }
 
     public class UserService : IUserService
@@ -58,7 +61,8 @@ namespace WebApi.Services
             var user = new User {
                 Username = model.Username,
                 Password = model.Password,
-                IsAdmin = model.IsAdmin
+                IsAdmin = model.IsAdmin,
+                ProfilePictureUrl = "http://localhost:4000/imgs/default.png"
             };
 
             _context.Users.Add(user);
@@ -67,6 +71,48 @@ namespace WebApi.Services
             var addedUser = _context.Users.SingleOrDefault(x => x.Username == user.Username);
 
             return addedUser;
+        }
+
+        public bool UploadImage(UserImage file)
+        {
+            try
+            {
+                string currentDir = Directory.GetCurrentDirectory();
+
+                string path = Path.Combine(currentDir, "Uploads", file.FileName);
+
+                using (Stream stream = new FileStream(path, FileMode.Create))
+                {
+                    file.FormFile.CopyTo(stream);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            //Change profile picture url
+            var user = _context.Users
+                .Where(u => u.Id == file.UserId)
+                .SingleOrDefault();
+            user.ProfilePictureUrl = $"http://localhost:4000/imgs/{file.FileName}";
+            _context.SaveChanges();
+            return true;
+        }
+
+        public GetPictureRes GetPicturePath(GetPicturePathReq model)
+        {
+            var user = _context.Users
+                .Where(u => u.Id == model.UserId)
+                .SingleOrDefault();
+
+            if (user == null)
+                return null;
+
+            return new GetPictureRes
+            {
+                Path = user.ProfilePictureUrl
+            };
         }
 
         public IEnumerable<User> GetAll()
@@ -79,8 +125,7 @@ namespace WebApi.Services
             return _context.Users.FirstOrDefault(x => x.Id == id);
         }
 
-        // helper methods
-
+        // Helper methods
         private string generateJwtToken(User user)
         {
             // generate token that is valid for 7 days

@@ -6,6 +6,6 @@ namespace WebApi.Models.SlotMachine
     public class SlotMachineSpinRes
     {
         public List<SlotSymbol> SymbolsList { get; set; }
-        public float Reward { get; set; }
+        public int Reward { get; set; }
     }
 }

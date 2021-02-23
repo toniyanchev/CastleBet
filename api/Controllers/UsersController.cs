@@ -39,6 +39,28 @@ namespace WebApi.Controllers
             return Ok(response);
         }
 
+        [HttpPost("upload-image")]
+        public IActionResult UploadImage ([FromForm] UserImage model)
+        {
+            var response = _userService.UploadImage(model);
+
+            if (!response)
+                return BadRequest(new { message = "Error" });
+
+            return Ok(response);
+        }
+
+        [HttpPost("get-picture")]
+        public IActionResult GetImage (GetPicturePathReq model)
+        {
+            var response = _userService.GetPicturePath(model);
+
+            if (response == null)
+                return BadRequest(new { message = "User not exist!" });
+
+            return Ok(response);
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult GetAll()

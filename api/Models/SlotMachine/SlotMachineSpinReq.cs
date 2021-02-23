@@ -8,7 +8,7 @@ namespace WebApi.Models
         public int UserId { get; set; }
 
         [Required]
-        public float Bet { get; set; }
+        public int Bet { get; set; }
 
         [Required]
         public string Game { get; set; }

@@ -1,0 +1,26 @@
+.BalanceBoxWrapper {
+  position: relative;
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  border: 3px rgb(245, 191, 15) solid;
+  align-items: center;
+  font-size: 4vh;
+  color: white;
+  font-weight: 900;
+  width: fit-content;
+  height: 80%;
+  padding: 5px;
+  min-width: 20%;
+}
+
+.BalanceBoxTitle {
+  position: absolute;
+  width: 50%;
+  bottom: 0;
+  font-size: 1.5vh;
+  border: 2px rgb(245, 191, 15) solid;
+  color: rgb(245, 191, 15);
+  border-radius: 5px;
+  padding: 2px;
+}

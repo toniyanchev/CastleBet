@@ -23,6 +23,7 @@
   background-color: rgb(167, 108, 0);
   border: none;
   border-radius: 2px;
+  cursor: pointer;
 }
 
 .RegisterButton:focus {

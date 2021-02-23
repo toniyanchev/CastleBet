@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import postFetch from '../../../fetches/postFetch';
-import validateUserData from './validation';
 
 import UserType from './UserType/UserType';
 import RegisterHeader from './RegisterHeader/RegisterHeader';
@@ -17,7 +18,9 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [birthDate, setBirthDate] = useState(new Date());
-  const [adminCode, setAdminCode] = useState("")
+  const [adminCode, setAdminCode] = useState("");
+
+  let history = useHistory();
 
   const register = () => {
     const user = {
@@ -27,11 +30,14 @@ const Register = () => {
       adminCode: adminCode,
       birthdate: birthDate
     }
-    if (validateUserData(user) === false) {
-      window.alert('Not valid user data!'); //Aler if there is invalid data.
-    } else {
-      postFetch(REGISTER_USER, user); //Register user if user data is valid.
-    }
+    postFetch(REGISTER_USER, user)
+      .then(data => {
+        if (data.httpStatus === 200) {
+          history.push("/login");
+        } else {
+          toast.error("Invalid data!");
+        }
+      });
   }
 
   const changeUserType = type => {

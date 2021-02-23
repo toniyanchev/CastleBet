@@ -1,0 +1,8 @@
+.SlotMachineWrapper {
+  display: flex;
+  align-self: flex-end;
+  width: 100%;
+  height: calc(100% - 65px);
+  align-items: center;
+  justify-content: center;
+}

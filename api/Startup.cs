@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using WebApi.Helpers;
 using WebApi.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+
 namespace WebApi
 {
     public class Startup
@@ -49,6 +52,13 @@ namespace WebApi
 
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "Uploads")),
+                RequestPath = "/imgs"
+            });
 
             app.UseEndpoints(x => x.MapControllers());
         }

@@ -13,6 +13,7 @@ namespace WebApi.Entities
         public string Password { get; set; }
         public bool IsAdmin { get; set; }
         public int Balance { get; set; }
+        public string ProfilePictureUrl { get; set; }
         public List<Ticket> Tickets { get; set; }
         public List<TicketMessage> TicketMessages { get; set; }
         public List<SlotMachineSpin> SlotMachineSpins { get; set; }

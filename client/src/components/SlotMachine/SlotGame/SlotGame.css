@@ -1,0 +1,9 @@
+.SlotGameWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
+  background-color: rgb(14, 22, 39);
+  border: 10px rgb(245, 191, 15) solid;
+  border-radius: 20px;
+}

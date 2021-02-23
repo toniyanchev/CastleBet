@@ -19,6 +19,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("spin")]
+        [Authorize]
         public IActionResult Spin(SlotMachineSpinReq model)
         {
             var response = _slotMachineService.Spin(model);

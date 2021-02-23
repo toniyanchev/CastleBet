@@ -1,4 +1,4 @@
-button {
+.CustomButton {
   opacity: 0.8;
   outline: none;
   text-align: center;
@@ -7,6 +7,6 @@ button {
   border: none;
   border-radius: 5px;
 }
-button:hover {
+.CustomButton:hover {
   opacity: 1;
 }

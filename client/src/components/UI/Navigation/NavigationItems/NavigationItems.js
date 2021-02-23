@@ -17,12 +17,8 @@ const NavigationItems = props => {
   const userItems = (
     <ul className="NavigationItemsInnerWrapper">
       <NavigationItem 
-        name="Slot Machine"
-        handleClick={() => history.push("/slot")}
-      />
-      <NavigationItem 
         name="Login"
-        handleClick={() => history.push("/auth")}
+        handleClick={() => history.push("/login")}
       />
     </ul>
   );
@@ -39,7 +35,7 @@ const NavigationItems = props => {
       />
       <NavigationItem 
         name={userData.user?.username}
-        handleClick={() => history.push("/")}
+        handleClick={() => history.push("/profile")}
       />
     </ul>
   )
@@ -57,7 +53,7 @@ const NavigationItems = props => {
       />
       <NavigationItem 
         name={userData.user?.username}
-        handleClick={() => history.push("/")}
+        handleClick={() => history.push("/profile")}
       >
         <div>{userData.user?.balance} CC</div>
       </NavigationItem>

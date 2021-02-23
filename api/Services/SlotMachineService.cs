@@ -39,8 +39,13 @@ namespace WebApi.Services
             var user = _context.Users
                 .Where(u => u.Id == model.UserId)
                 .SingleOrDefault();
+            //Check if user exists and have enough balance for the spin
             if (user.Balance < model.Bet)
                 return null;
+            
+            //Remove the bet from user's balance
+            user.Balance -= model.Bet;
+            _context.SaveChanges();
 
             //Fill list with random symbols based on certain odds
             for (var i = 0; i < 9; i++)
@@ -67,6 +72,10 @@ namespace WebApi.Services
             _context.SlotMachineSpins.Add(dbSpinData);
             _context.SaveChanges();
 
+            //Add reward from the spin to user's balance
+            user.Balance += reward;
+            _context.SaveChanges();
+
             //Return slot symbols to display in FE and the reward(winning)
             return new SlotMachineSpinRes {
                 SymbolsList = symbolsList,
@@ -91,7 +100,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Gerb,
-                    Currency = 0.5f
+                    Currency = 2
                 };
             }
             //
@@ -99,7 +108,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Swords,
-                    Currency = 0.5f
+                    Currency = 2
                 };
             }
             //
@@ -107,7 +116,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Crown,
-                    Currency = 0.5f
+                    Currency = 2
                 };
             }
             //
@@ -115,7 +124,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.King,
-                    Currency = 4
+                    Currency = 10
                 };
             }
             //
@@ -123,7 +132,7 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Queen,
-                    Currency = 4
+                    Currency = 10
                 };
             }
             //
@@ -131,50 +140,50 @@ namespace WebApi.Services
             {
                 return new SlotSymbol{
                     Symbol = SymbolType.Knight,
-                    Currency = 2
+                    Currency = 8
                 };
             }
 
             return null;
         }
 
-        private float calculateReward(List<SlotSymbol> symbols, float bet)
+        private int calculateReward(List<SlotSymbol> symbols, int bet)
         {
-            float result = 0;
+            int result = 0;
 
-            result = result + calculateSingleLine(symbols[0].Currency, symbols[1].Currency, symbols[2].Currency, bet);
-            result = result + calculateSingleLine(symbols[3].Currency, symbols[4].Currency, symbols[5].Currency, bet);
-            result = result + calculateSingleLine(symbols[6].Currency, symbols[7].Currency, symbols[8].Currency, bet);
-            result = result + calculateSingleLine(symbols[0].Currency, symbols[4].Currency, symbols[8].Currency, bet);
-            result = result + calculateSingleLine(symbols[6].Currency, symbols[4].Currency, symbols[2].Currency, bet);
+            result = result + calculateSingleLine(symbols[0], symbols[1], symbols[2], bet);
+            result = result + calculateSingleLine(symbols[3], symbols[4], symbols[5], bet);
+            result = result + calculateSingleLine(symbols[6], symbols[7], symbols[8], bet);
+            result = result + calculateSingleLine(symbols[0], symbols[4], symbols[8], bet);
+            result = result + calculateSingleLine(symbols[6], symbols[4], symbols[2], bet);
 
             return result;
         }
 
-        private float calculateSingleLine(float currency1, float currency2, float currency3, float bet)
+        private int calculateSingleLine(SlotSymbol symbol1, SlotSymbol symbol2, SlotSymbol symbol3, int bet)
         {
             //Assign first symbol as main symbol(line maker)
-            float mainCurrency = currency1;
+            SlotSymbol mainSymbol = symbol1;
 
             //Check if line has only special Castle symbols
-            if (currency1 == 0 && currency2 == 0 && currency3 == 0)
-                return bet * 10;
+            if (symbol1.Currency == 0 && symbol2.Currency == 0 && symbol3.Currency == 0)
+                return bet * 50;
             
             //Exclude cases when line starts with the special Castle symbol
-            if (mainCurrency == 0)
-                mainCurrency = currency2;
-            if (mainCurrency == 0)
-                mainCurrency = currency3;
+            if (mainSymbol.Currency == 0)
+                mainSymbol = symbol2;
+            if (mainSymbol.Currency == 0)
+                mainSymbol = symbol3;
 
             //Check if we have a winning line - equal symbols or combinated with special symbol
-            if (currency1 != mainCurrency && currency1 != 0)
+            if (!(symbol1.Symbol == mainSymbol.Symbol || symbol1.Currency == 0))
                 return 0;
-            if (currency2 != mainCurrency && currency2 != 0)
+            if (!(symbol2.Symbol == mainSymbol.Symbol || symbol2.Currency == 0))
                 return 0;
-            if (currency3 != mainCurrency && currency3 != 0)
+            if (!(symbol3.Symbol == mainSymbol.Symbol || symbol3.Currency == 0))
                 return 0;
 
-            return bet * mainCurrency;
+            return bet * mainSymbol.Currency;
         }
     }
 }

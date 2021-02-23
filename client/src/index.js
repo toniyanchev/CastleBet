@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 
 import './index.css';
 import { UserContextProvider } from './contexts/User/UserContextProvider';
+import { SlotMachineContextProvider } from './contexts/SlotMachine/SlotMachineContextProvider';
 import App from './App';
 
 const app = (
   <UserContextProvider>
-    <App />
+    <SlotMachineContextProvider>
+      <App />
+    </SlotMachineContextProvider>
   </UserContextProvider>
 )
 

@@ -14,7 +14,8 @@ const Navigation = () => {
   return (
     <div className="NavBar">
       <div className="NavBarLogo">
-        <Logo 
+        <Logo
+          style={{ cursor: "pointer" }}
           pxWidth={60}
           pxHeight={60}
           clickHandler={() => history.push("/")}

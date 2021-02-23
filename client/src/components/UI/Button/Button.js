@@ -7,6 +7,7 @@ const Button = props => {
 
   return (
     <button
+      className="CustomButton"
       style={{
         width: `${width}px`,
         height: `${width / 2}px`,

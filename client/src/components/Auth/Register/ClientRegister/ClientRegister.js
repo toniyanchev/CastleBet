@@ -10,7 +10,7 @@ const ClientRegister = props => {
   const { handlePassword, handleUsername, handleBirthDate } = props;
 
   const springProps = useSpring({
-    opacity: 1,
+    to: {opacity: 1},
     from: {opacity: 0},
     config: {duration: 1000}
   });

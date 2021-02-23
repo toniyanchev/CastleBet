@@ -10,7 +10,11 @@ const Logo = props => {
       src={castleLogo}
       alt="castle logo"
       onClick={() => clickHandler()}
-      style={{width: `${pxWidth}px`, height: `${pxHeight}px`}}
+      style={{
+        width: `${pxWidth}px`,
+        height: `${pxHeight}px`,
+        cursor: "pointer"
+      }}
     />
   )
 }
