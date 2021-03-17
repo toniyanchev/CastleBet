@@ -38,7 +38,8 @@ namespace WebApi.Services
 
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
-            var user = _context.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            var user = _context.Users
+                .SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
             // return null if user not found
             if (user == null) return null;
@@ -58,11 +59,25 @@ namespace WebApi.Services
             if (doesExist)
                 return null;
 
+            if (model.IsAdmin)
+            {
+                var adminCode = _context.AdminCodes
+                    .Where(x => x.Code == model.AdminCode)
+                    .SingleOrDefault();
+                if (adminCode != null)
+                {
+                    _context.AdminCodes.Remove(adminCode);
+                    _context.SaveChanges();
+                } else {
+                    return null;
+                }
+            }
+
             var user = new User {
                 Username = model.Username,
                 Password = model.Password,
                 IsAdmin = model.IsAdmin,
-                ProfilePictureUrl = "http://localhost:4000/imgs/default.png"
+                ProfilePictureUrl = "${process.env.REACT_APP_API}/imgs/default.png"
             };
 
             _context.Users.Add(user);
@@ -95,7 +110,7 @@ namespace WebApi.Services
             var user = _context.Users
                 .Where(u => u.Id == file.UserId)
                 .SingleOrDefault();
-            user.ProfilePictureUrl = $"http://localhost:4000/imgs/{file.FileName}";
+            user.ProfilePictureUrl = $"${process.env.REACT_APP_API}/imgs/{file.FileName}";
             _context.SaveChanges();
             return true;
         }
@@ -152,7 +167,7 @@ namespace WebApi.Services
                 return false;
 
             //Check if user is adult
-            if (model.Birthdate != null)
+            if (model.Birthdate != null && !model.IsAdmin)
             {
                 var today = DateTime.Today;
                 var age = today.Year - model.Birthdate.Year;

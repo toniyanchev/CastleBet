@@ -1,12 +1,12 @@
-import React, { useState, useContext } from 'react'
-import postFetch from '../../../../fetches/postFetch';
-import { UserContext } from '../../../../contexts/User/UserContext'
-import Button from '../../../UI/Button/Button';
-import './NewTicketForm.css';
+import React, { useState, useContext } from "react";
+import postFetch from "../../../../fetches/postFetch";
+import { UserContext } from "../../../../contexts/User/UserContext";
+import Button from "../../../UI/Button/Button";
+import "./NewTicketForm.css";
 
-const CREATE_TICKET = `http://localhost:4000/ticket/create`;
+const CREATE_TICKET = `${process.env.REACT_APP_API}/ticket/create`;
 
-const NewTicketForm = props => {
+const NewTicketForm = (props) => {
   const { created } = props;
   const userData = useContext(UserContext);
 
@@ -17,11 +17,12 @@ const NewTicketForm = props => {
     const req = {
       userId: userData.user.id,
       title: title,
-      content: message
+      content: message,
     };
-    postFetch(CREATE_TICKET, req, userData.token)
-      .then(data => data.httpStatus === 200 ? created() : window.alert('Could not create!'));
-  }
+    postFetch(CREATE_TICKET, req, userData.token).then((data) =>
+      data.httpStatus === 200 ? created() : window.alert("Could not create!")
+    );
+  };
 
   return (
     <div className="NewTicketFormWrapper">
@@ -47,6 +48,6 @@ const NewTicketForm = props => {
       />
     </div>
   );
-}
+};
 
 export default NewTicketForm;

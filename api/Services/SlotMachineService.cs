@@ -60,9 +60,7 @@ namespace WebApi.Services
             var dbSpinData = new SlotMachineSpin {
                 Id = 0,
                 Time = DateTime.Now,
-                User = _context.Users
-                    .Where(u => u.Id == model.UserId)
-                    .SingleOrDefault(),
+                User = user,
                 Game = model.Game,
                 Bet = model.Bet,
                 Reward = reward
