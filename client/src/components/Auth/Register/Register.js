@@ -17,6 +17,7 @@ const Register = () => {
   const [userType, setUserType] = useState("client");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [paypalId, setPaypalId] = useState("");
   const [birthDate, setBirthDate] = useState(new Date());
   const [adminCode, setAdminCode] = useState("");
 
@@ -26,6 +27,7 @@ const Register = () => {
     const user = {
       username: username,
       password: password,
+      payPalId: paypalId,
       isAdmin: userType === "admin" ? true : false,
       adminCode: adminCode,
       birthdate: birthDate,
@@ -44,6 +46,7 @@ const Register = () => {
     setUserType(type);
     setUsername(null);
     setPassword(null);
+    setPaypalId(null);
     setBirthDate(new Date());
     setAdminCode(null);
   };
@@ -57,11 +60,9 @@ const Register = () => {
       <RegisterHeader />
       {userType === "client" ? (
         <ClientRegister
-          handlePassword={(pass) => {
-            setPassword(pass);
-            console.log(pass);
-          }}
+          handlePassword={(pass) => setPassword(pass)}
           handleUsername={(usr) => setUsername(usr)}
+          handlePaypalId={(id) => setPaypalId(id)}
           handleBirthDate={(date) => setBirthDate(date)}
         />
       ) : (

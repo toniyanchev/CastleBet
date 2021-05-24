@@ -77,7 +77,8 @@ namespace WebApi.Services
                 Username = model.Username,
                 Password = model.Password,
                 IsAdmin = model.IsAdmin,
-                ProfilePictureUrl = "${process.env.REACT_APP_API}/imgs/default.png"
+                PayPalId = model.PayPalId,
+                ProfilePictureUrl = "http://localhost:4000/imgs/default.png"
             };
 
             _context.Users.Add(user);
@@ -110,7 +111,7 @@ namespace WebApi.Services
             var user = _context.Users
                 .Where(u => u.Id == file.UserId)
                 .SingleOrDefault();
-            user.ProfilePictureUrl = $"${process.env.REACT_APP_API}/imgs/{file.FileName}";
+            user.ProfilePictureUrl = $"http://localhost:4000/imgs/{file.FileName}";
             _context.SaveChanges();
             return true;
         }

@@ -1,55 +1,79 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useContext } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import Home from './containers/Home/Home';
-import Tickets from './containers/Tickets/Tickets';
-import SlotMachine from './containers/SlotMachine/SlotMachine';
-import Login from './containers/Login/Login';
+import Home from "./containers/Home/Home";
+import Tickets from "./containers/Tickets/Tickets";
+import SlotMachine from "./containers/SlotMachine/SlotMachine";
+import Login from "./containers/Login/Login";
 
-import Navigation from './components/UI/Navigation/Navigation';
+import Navigation from "./components/UI/Navigation/Navigation";
 
-import './App.css';
-import Register from './components/Auth/Register/Register';
-import ProfileContainer from './containers/Profile/Profile';
+import "./App.css";
+import Register from "./components/Auth/Register/Register";
+import ProfileContainer from "./containers/Profile/Profile";
+import { UserContext } from "./contexts/User/UserContext";
+import Deposit from "./components/Deposit/Deposit";
 
 const App = () => {
+  const userContext = useContext(UserContext);
+
   return (
     <BrowserRouter>
-    <div className="App">
-      <ToastContainer />
+      <div className="App">
+        <ToastContainer />
 
-      <Navigation userType="user" />
+        <Navigation userType="user" />
 
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
 
-        <Route path="/login">
-          <Login />
-        </Route>
+          {userContext.token ? null : (
+            <Route exact path="/login">
+              <Login />
+            </Route>
+          )}
 
-        <Route path="/register">
-          <Register />
-        </Route>
+          {userContext.token ? null : (
+            <Route exact path="/register">
+              <Register />
+            </Route>
+          )}
 
-        <Route path="/tickets">
-          <Tickets />
-        </Route>
+          {userContext.token ? (
+            <Route exact path="/tickets">
+              <Tickets />
+            </Route>
+          ) : null}
 
-        <Route path="/slot">
-          <SlotMachine />
-        </Route>
+          {userContext.token ? (
+            <Route exact path="/slot">
+              <SlotMachine />
+            </Route>
+          ) : null}
 
-        <Route path="/profile">
-          <ProfileContainer />
-        </Route>
-      </Switch>
-    </div>
+          {userContext.token ? (
+            <Route exact path="/profile">
+              <ProfileContainer />
+            </Route>
+          ) : null}
+
+          {userContext.token ? (
+            <Route exact path="/deposit">
+              <Deposit />
+            </Route>
+          ) : null}
+
+          <Route path="/">
+            <div>ERROR 404</div>
+          </Route>
+        </Switch>
+      </div>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

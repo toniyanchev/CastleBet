@@ -40,7 +40,6 @@
   width: 103%;
 }
 .ValidPassword:focus {
-  /* height: 33px; */
   width: 103%;
   background-color: rgb(29, 29, 54);
   border: 1px green solid;
@@ -50,7 +49,6 @@
   padding-left: 10px;
 }
 .InvalidPassword:focus {
-  /* height: 33px; */
   width: 103%;
   background-color: rgb(29, 29, 54);
   border: 1px red solid;
@@ -58,6 +56,10 @@
   color: rgb(203, 200, 233);
   outline: none;
   padding-left: 10px;
+}
+
+.PayPalId {
+  margin-bottom: 15px;
 }
 
 .ClientRegisterBirthDate {

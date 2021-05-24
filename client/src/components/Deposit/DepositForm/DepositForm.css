@@ -1,0 +1,55 @@
+.DepositFormWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  background-color: rgb(40, 40, 75);
+  border: 2px black solid;
+  height: 300px;
+  margin: 20px;
+}
+.DepositFormTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: 900;
+  height: 40%;
+}
+.DepositFormContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+}
+.DepositFormContent input,
+.DepositFormContent select {
+  background-color: rgb(17, 30, 54);
+  border-radius: 5px;
+  border: 2px rgb(185, 136, 0) solid;
+  color: white;
+  margin: 5px;
+  font-size: 2vh;
+}
+
+.DepositMinAmount {
+  color: rgb(206, 0, 0);
+  font-weight: 900;
+  font-size: 2vh;
+  margin-bottom: 10px;
+}
+
+.DepositBtn {
+  background-color: rgb(29, 126, 29);
+  color: white;
+  font-size: large;
+  outline: none;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}

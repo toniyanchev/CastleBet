@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 300px;
   background-color: rgb(40, 40, 75);
-  height: fit-content;
+  height: 70%;
   padding: 30px;
   align-self: center;
 }
@@ -15,8 +15,8 @@
   align-self: center;
   align-items: center;
   font-weight: 900;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color:  rgb(29, 29, 54);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: rgb(29, 29, 54);
   justify-content: center;
   margin: 20px;
   outline: none;
@@ -29,4 +29,3 @@
 .RegisterButton:focus {
   outline: none;
 }
-

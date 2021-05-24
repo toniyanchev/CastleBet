@@ -1,0 +1,18 @@
+.DepositWrapper {
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-content: center;
+}
+
+.PaymentForms {
+  display: flex;
+}
+
+.DepositCurrentBalance {
+  font-size: 30px;
+  font-weight: 900;
+  color: rgb(185, 136, 0);
+}

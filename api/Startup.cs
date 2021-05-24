@@ -37,6 +37,7 @@ namespace WebApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITicketService, TicketService>();
             services.AddScoped<ISlotMachineService, SlotMachineService>();
+            services.AddScoped<IPaymentService, PaymentService>();
         }
 
         // configure the HTTP request pipeline

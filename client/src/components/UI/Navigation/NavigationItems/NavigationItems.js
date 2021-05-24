@@ -1,13 +1,13 @@
-import React, { useContext } from 'react'
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 
-import { UserContext } from '../../../../contexts/User/UserContext';
+import { UserContext } from "../../../../contexts/User/UserContext";
 
-import NavigationItem from './NavigationItem/NavigationItem';
+import NavigationItem from "./NavigationItem/NavigationItem";
 
-import './NavigationItems.css';
+import "./NavigationItems.css";
 
-const NavigationItems = props => {
+const NavigationItems = (props) => {
   const { userType } = props;
 
   const userData = useContext(UserContext);
@@ -16,68 +16,56 @@ const NavigationItems = props => {
 
   const userItems = (
     <ul className="NavigationItemsInnerWrapper">
-      <NavigationItem 
-        name="Login"
-        handleClick={() => history.push("/login")}
-      />
+      <NavigationItem name="Login" handleClick={() => history.push("/login")} />
     </ul>
   );
 
   const adminItems = (
     <ul className="NavigationItemsInnerWrapper">
-      <NavigationItem 
+      <NavigationItem
         name="Slot Machine"
         handleClick={() => history.push("/slot")}
       />
-      <NavigationItem 
+      <NavigationItem
         name="Tickets"
         handleClick={() => history.push("/tickets")}
       />
-      <NavigationItem 
+      <NavigationItem
         name={userData.user?.username}
         handleClick={() => history.push("/profile")}
       />
     </ul>
-  )
+  );
 
   const clientItems = (
     <ul className="NavigationItemsInnerWrapper">
-      <NavigationItem 
+      <NavigationItem
         name="Slot Machine"
         handleClick={() => history.push("/slot")}
       />
-
-      <NavigationItem 
+      <NavigationItem
         name="Tickets"
         handleClick={() => history.push("/tickets")}
       />
-      <NavigationItem 
+      <NavigationItem
         name={userData.user?.username}
         handleClick={() => history.push("/profile")}
       >
         <div>{userData.user?.balance} CC</div>
       </NavigationItem>
+      <NavigationItem
+        name="Deposit"
+        handleClick={() => history.push("/deposit")}
+      />
     </ul>
   );
   return (
     <div className="NavigationItemsWrapper">
-      {
-        userType === "user" ?
-          userItems :
-          null
-      }
-      {
-        userType === "admin" ?
-          adminItems :
-          null
-      }
-      {
-        userType === "client" ?
-          clientItems :
-          null
-      }
+      {userType === "user" ? userItems : null}
+      {userType === "admin" ? adminItems : null}
+      {userType === "client" ? clientItems : null}
     </div>
   );
-}
+};
 
 export default NavigationItems;

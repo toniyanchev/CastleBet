@@ -15,7 +15,7 @@ namespace WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                        .UseUrls("${process.env.REACT_APP_API}");
+                        .UseUrls("http://localhost:4000");
                 });
     }
 }
