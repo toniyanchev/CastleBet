@@ -1,3 +1,4 @@
+using System.Net.Mail;
 using System.IO;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -11,12 +12,14 @@ using WebApi.Entities;
 using WebApi.Helpers;
 using WebApi.Models;
 using AppContext = WebApi.Helpers.AppContext;
+using System.Net;
 
 namespace WebApi.Services
 {
     public interface IUserService
     {
         AuthenticateResponse Authenticate(AuthenticateRequest model);
+        User Login(AuthenticateRequest model);
         User Register(RegisterRequest model);
         IEnumerable<User> GetAll();
         User GetById(int id);
@@ -39,7 +42,7 @@ namespace WebApi.Services
         public AuthenticateResponse Authenticate(AuthenticateRequest model)
         {
             var user = _context.Users
-                .SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+                .SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password && x.LastCode == model.Code);
 
             // return null if user not found
             if (user == null) return null;
@@ -48,6 +51,23 @@ namespace WebApi.Services
             var token = generateJwtToken(user);
 
             return new AuthenticateResponse(user, token);
+        }
+
+        public User Login(AuthenticateRequest model)
+        {
+             var user = _context.Users
+                .SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            // return null if user not found
+            if (user == null) return null;
+
+            var rndNumber = new Random().Next(100000, 999999);
+            user.LastCode = rndNumber;
+
+            _context.SaveChanges();
+
+            sendVerificationMail(rndNumber, user.Email);
+
+            return new User { Username = model.Username };
         }
 
         public User Register(RegisterRequest model)
@@ -75,6 +95,7 @@ namespace WebApi.Services
 
             var user = new User {
                 Username = model.Username,
+                Email = model.Email,
                 Password = model.Password,
                 IsAdmin = model.IsAdmin,
                 PayPalId = model.PayPalId,
@@ -181,6 +202,31 @@ namespace WebApi.Services
             }
 
             return true;
+        }
+
+        private void sendVerificationMail (long code, string receiver)
+        {
+            var email = Environment.GetEnvironmentVariable("SENDER_EMAIL");
+            var password = Environment.GetEnvironmentVariable("SENDER_PASSWORD");
+
+            var smtpClient = new SmtpClient("Smtp.gmail.com")
+            {
+                UseDefaultCredentials = false,
+                Port = 587,
+                EnableSsl = true,
+            };
+            smtpClient.Credentials = new NetworkCredential(email, password);
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress(email),
+                Subject = "Verification",
+                Body = $"<h1>Your code for verification is: <strong>{code}</strong</h1>",
+                IsBodyHtml = true,
+            };
+            mailMessage.To.Add(receiver);
+
+            smtpClient.Send(mailMessage);
         }
     }
 }

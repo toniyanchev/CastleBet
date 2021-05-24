@@ -8,9 +8,11 @@ namespace WebApi.Entities
     {
         public int Id { get; set; }
         public string Username { get; set; }
+        public string Email { get; set; }
 
         [JsonIgnore]
         public string Password { get; set; }
+        public long LastCode { get; set; }
         public bool IsAdmin { get; set; }
         public int Balance { get; set; }
         public string PayPalId { get; set; }

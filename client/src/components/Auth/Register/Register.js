@@ -16,6 +16,7 @@ const REGISTER_USER = `${process.env.REACT_APP_API}/users/register`;
 const Register = () => {
   const [userType, setUserType] = useState("client");
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [paypalId, setPaypalId] = useState("");
   const [birthDate, setBirthDate] = useState(new Date());
@@ -26,6 +27,7 @@ const Register = () => {
   const register = () => {
     const user = {
       username: username,
+      email: email,
       password: password,
       payPalId: paypalId,
       isAdmin: userType === "admin" ? true : false,
@@ -45,6 +47,7 @@ const Register = () => {
   const changeUserType = (type) => {
     setUserType(type);
     setUsername(null);
+    setEmail(null);
     setPassword(null);
     setPaypalId(null);
     setBirthDate(new Date());
@@ -61,6 +64,7 @@ const Register = () => {
       {userType === "client" ? (
         <ClientRegister
           handlePassword={(pass) => setPassword(pass)}
+          handleEmail={(mail) => setEmail(mail)}
           handleUsername={(usr) => setUsername(usr)}
           handlePaypalId={(id) => setPaypalId(id)}
           handleBirthDate={(date) => setBirthDate(date)}
@@ -68,6 +72,7 @@ const Register = () => {
       ) : (
         <AdminRegister
           handlePassword={(pass) => setPassword(pass)}
+          handleEmail={(mail) => setEmail(mail)}
           handleUsername={(usr) => setUsername(usr)}
           handleAdminCode={(code) => setAdminCode(code)}
         />

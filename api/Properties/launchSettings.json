@@ -21,7 +21,9 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "PAYPAL_APP_USERNAME": "ATdmXfpSCLR5C_uc__mDlHzclezgs67eSWwQauNsAmJeeAXGz2gM2mg9aa6yaae7w4SXotXPyBOeWKba",
-        "PAYPAL_APP_PASSWORD": "EITlBEdb8v6lEhAKU72-Zc1a9vGIOXbUSa68aK_yfkOvIMUjBIORoKpX7ceiGCveO5fBCAqwxRaWYzcv"
+        "PAYPAL_APP_PASSWORD": "EITlBEdb8v6lEhAKU72-Zc1a9vGIOXbUSa68aK_yfkOvIMUjBIORoKpX7ceiGCveO5fBCAqwxRaWYzcv",
+        "SENDER_EMAIL": "castlebet595@gmail.com",
+        "SENDER_PASSWORD": "compaq2002"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }

@@ -23,7 +23,18 @@ namespace WebApi.Controllers
             var response = _userService.Authenticate(model);
 
             if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new { message = "Code is incorrect!" });
+
+            return Ok(response);
+        }
+
+        [HttpPost("login")]
+        public IActionResult Login(AuthenticateRequest model)
+        {
+            var response = _userService.Login(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Username or password are incorrect!" });
 
             return Ok(response);
         }

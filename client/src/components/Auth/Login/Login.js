@@ -10,8 +10,9 @@ import { hidePassIcon, showPassIcon } from "../images";
 
 import "./Login.css";
 import { toast } from "react-toastify";
+import TwoFactorModal from "./TwoFactorModal/TwoFactorModal";
 
-const AUTHENTICATE_USER = `${process.env.REACT_APP_API}/users/authenticate`;
+const LOGIN = `${process.env.REACT_APP_API}/users/login`;
 
 const Login = (props) => {
   const { handleRegisterNow } = props;
@@ -22,6 +23,7 @@ const Login = (props) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const login = () => {
     let user = {
@@ -29,7 +31,7 @@ const Login = (props) => {
       password: password,
     };
 
-    postFetch(AUTHENTICATE_USER, user).then((data) => {
+    postFetch(LOGIN, user).then((data) => {
       if (data.httpStatus === 200) {
         userData.setToken(data.token);
         userData.setUser({
@@ -38,8 +40,7 @@ const Login = (props) => {
           balance: data.balance,
           userType: data.userType,
         });
-        history.push("/");
-        toast.success("Logged in!");
+        setShowModal(true);
       } else {
         toast.error("Wrong credentials!");
       }
@@ -47,39 +48,56 @@ const Login = (props) => {
   };
 
   return (
-    <div className="LoginWrapper">
-      <div className="LoginHeader">
-        <Logo pxWidth={100} pxHeight={100} clickHandler={() => null} />
-      </div>
-      <div className="LoginFields">
-        <input
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      {showModal ? (
+        <TwoFactorModal
+          username={username}
+          password={password}
+          handleClose={() => setShowModal(false)}
         />
-        <div className="LoginPasswordField">
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <img
-            className="ShowHidePassIcon"
-            src={showPassword ? showPassIcon : hidePassIcon}
-            alt="showPasswordImgErr"
-            onClick={() => setShowPassword(!showPassword)}
-          />
+      ) : null}
+      <div className="LoginWrapper">
+        <div className="LoginHeader">
+          <Logo pxWidth={100} pxHeight={100} clickHandler={() => null} />
         </div>
-      </div>
-      <div className="LoginButtons">
-        <button className="LoginButton" onClick={() => login()}>
-          LOGIN
-        </button>
-        <div className="LoginFooter">
-          <div>Not registered yet?</div>
-          <div className="RegisterNow" onClick={() => handleRegisterNow()}>
-            Register now!
+        <div className="LoginFields">
+          <input
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <div className="LoginPasswordField">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <img
+              className="ShowHidePassIcon"
+              src={showPassword ? showPassIcon : hidePassIcon}
+              alt="showPasswordImgErr"
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          </div>
+        </div>
+        <div className="LoginButtons">
+          <button className="LoginButton" onClick={() => login()}>
+            LOGIN
+          </button>
+          <div className="LoginFooter">
+            <div>Not registered yet?</div>
+            <div className="RegisterNow" onClick={() => handleRegisterNow()}>
+              Register now!
+            </div>
           </div>
         </div>
       </div>

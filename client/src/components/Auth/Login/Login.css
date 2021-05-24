@@ -1,9 +1,10 @@
 .LoginWrapper {
   display: flex;
-  background-color:  rgb(40, 40, 75);
+  background-color: rgb(40, 40, 75);
   width: 40%;
   height: fit-content;
   flex-direction: column;
+  position: absolute;
   max-width: 280px;
   border-radius: 2px;
   box-shadow: 2px 2px 2px 2px rgb(22, 22, 41);

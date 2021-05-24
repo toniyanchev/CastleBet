@@ -9,6 +9,7 @@ import "./ClientRegister.css";
 const ClientRegister = (props) => {
   const {
     handlePassword,
+    handleEmail,
     handleUsername,
     handlePaypalId,
     handleBirthDate,
@@ -22,6 +23,7 @@ const ClientRegister = (props) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [paypalId, setPaypalId] = useState("");
   const [birthDate, setBirthDate] = useState(new Date());
@@ -45,6 +47,10 @@ const ClientRegister = (props) => {
       setUsernameClass("InvalidUsername");
     }
     handleUsername(value);
+  };
+  const changeEmail = (value) => {
+    setEmail(value);
+    handleEmail(value);
   };
   const changePassword = (value) => {
     setPassword(value);
@@ -81,6 +87,13 @@ const ClientRegister = (props) => {
           onChange={(e) => changeUsername(e.target.value)}
         />
         <div className="UsernameError">{usernameError}</div>
+
+        <input
+          // className="EmailField"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => changeEmail(e.target.value)}
+        />
 
         <div className="ClientPasswordField">
           <input

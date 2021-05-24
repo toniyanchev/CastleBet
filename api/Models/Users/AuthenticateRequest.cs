@@ -9,5 +9,8 @@ namespace WebApi.Models
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public long Code { get; set; }
     }
 }
