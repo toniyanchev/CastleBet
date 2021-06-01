@@ -17,7 +17,7 @@ const TicketList = (props) => {
   const userData = useContext(UserContext);
 
   const [userTickets, setUserTickets] = useState([]);
-  console.log(`refresh before fetch: ${refresh}`);
+
   useEffect(() => {
     if (userData.user.userType === "admin") {
       getFetch(GET_ADMIN_TICKETS, userData.token).then((data) =>
@@ -32,8 +32,6 @@ const TicketList = (props) => {
       ).then((data) => setUserTickets(data));
     }
   }, [userData, refresh]);
-  console.log("tickets before render:");
-  console.log(userTickets);
 
   return (
     <div className="TicketListWrapper">

@@ -14,7 +14,7 @@ const TwoFactorModal = (props) => {
 
   const userData = useContext(UserContext);
 
-  const [code, setCode] = useState(null);
+  const [code, setCode] = useState("");
 
   const checkCode = () => {
     let user = {

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import './RewardBox.css';
+import "./RewardBox.css";
 
-const RewardBox = props => {
+const RewardBox = (props) => {
   const { reward } = props;
   const [shown, setShown] = useState(false);
 
@@ -13,18 +13,17 @@ const RewardBox = props => {
       return () => {
         clearTimeout(timeout);
         setShown(false);
-      }
+      };
     }
-  }, [reward])
-  console.log(shown);
-  console.log(reward);
+  }, [reward]);
+
   return (
     <div className="RewardBoxWrapper">
       WIN:
-      { shown && reward ? reward : 0 }
+      {shown && reward ? reward : 0}
       CC
     </div>
-  )
-}
+  );
+};
 
 export default RewardBox;

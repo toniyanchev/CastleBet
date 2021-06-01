@@ -19,10 +19,8 @@ const ProfileEdit = () => {
   const [enableSubmit, setEnableSubmit] = useState(false);
 
   useEffect(() => {
-    console.log("IN USEEFECT");
     postFetch(GET_PICTURE, { userId: userData.user.id }, userData.token).then(
       (data) => {
-        console.log(data);
         setImageSrc(data.path);
       }
     );
@@ -33,7 +31,6 @@ const ProfileEdit = () => {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.onload = (x) => {
-        console.log(x.target);
         setImageFile(file);
         setImageSrc(x.target.result);
         setEnableSubmit(true);
@@ -64,7 +61,6 @@ const ProfileEdit = () => {
 
   return (
     <div className="ProfileEditWrapper">
-      {console.log(imageSrc)}
       <img src={imageSrc} alt="profilePhoto" className="ProfileImage" />
 
       <input

@@ -209,7 +209,7 @@ namespace WebApi.Services
             var email = Environment.GetEnvironmentVariable("SENDER_EMAIL");
             var password = Environment.GetEnvironmentVariable("SENDER_PASSWORD");
 
-            var smtpClient = new SmtpClient("Smtp.gmail.com")
+            var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 UseDefaultCredentials = false,
                 Port = 587,

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +18,16 @@ import Deposit from "./components/Deposit/Deposit";
 
 const App = () => {
   const userContext = useContext(UserContext);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const user = localStorage.getItem("castleBetUser");
+
+    if (token) {
+      userContext.setToken(token);
+      userContext.setUser(JSON.parse(user));
+    }
+  }, [userContext.setToken, userContext.setUser]);
 
   return (
     <BrowserRouter>

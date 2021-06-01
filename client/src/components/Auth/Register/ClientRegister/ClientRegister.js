@@ -68,7 +68,6 @@ const ClientRegister = (props) => {
     handlePaypalId(value);
   };
   const changeBirthDate = (value) => {
-    console.log(value);
     setBirthDate(value);
     if (validBirthDate(value) >= 18) {
       handleBirthDate(new Date(value));

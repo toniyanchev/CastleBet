@@ -36,7 +36,6 @@ const Deposit = () => {
           handleCurrency={(val) => setDepositCurrency(val)}
           handleDeposit={() => deposit()}
         />
-        {console.log(userContext.user.balance)}
         <WithdrawForm
           currentCC={userContext.user.balance}
           currency={withdrawCurrency}
